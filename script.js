@@ -5,8 +5,6 @@ console.log(generateBtn);
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
-  console.log(password.length);
-
 
   var passwordText = document.querySelector("#password");
 
@@ -34,7 +32,6 @@ function generatePassword(){
 
     //Alert when user inputs an invalid password length
     if (passLength>=8 && passLength<=128){
-        console.log(passLength)
     } else {
         alert("Not valid. Please choose a number between 8-128");
     }
@@ -60,14 +57,11 @@ function generatePassword(){
         charObject.push(numbers);
      } 
 
-
     //adding special characters to string
     if (specialChar){
         specialstring = "~!@#$%^&*";
         charObject.push(specialstring);
     } 
-
-console.log(charObject);
 
     //initalize password
     var finalPassword = "";
@@ -80,7 +74,6 @@ console.log(charObject);
             n= 0;  
         }
         let randCharFromThisString = charObject[n];
-        console.log(randCharFromThisString);
 
         let randNum = Math.floor(Math.random() * randCharFromThisString.length);
         let randChar = randCharFromThisString[randNum]; 
@@ -96,7 +89,8 @@ console.log(charObject);
             function containsLowCase(str){
                 return /[a-z]/.test(str);
             }
-            var lowCasePresent = containsLowCase(password);
+            var lowCasePresent = containsLowCase(finalPassword);
+            console.log("lower case characters present: " + lowCasePresent);
         } else {
             var lowCasePresent = true;
         }
@@ -106,8 +100,8 @@ console.log(charObject);
             function containsUpCase(str){
                 return /[A-Z]/.test(str);
             }
-            var upCasePresent = containsUpCase(password);
-            console.log(upCasePresent + " upper case characters");
+            var upCasePresent = containsUpCase(finalPassword);
+            console.log("upper case characters present: " + upCasePresent);
         } else {
             var upCasePresent = true;
         }
@@ -117,8 +111,8 @@ console.log(charObject);
             function containsNum(str){
                 return /[0-9]/.test(str);
             }
-            var numPresent = containsNum(password);
-            console.log(numPresent + " numbers present");
+            var numPresent = containsNum(finalPassword);
+            console.log("numbers present: " + numPresent);
         } else {
             var numPresent = true;
         }
@@ -126,11 +120,11 @@ console.log(charObject);
         //Checks if password contains at least 1 of each user criteria (special characters)
         if(specialChar){
             function containsSpecial(str){
-                const specialChars = /[!@#$%^&*]/;
-                return specialChars.test(password);
+                const specialChars = /[~!@#$%^&*]/;
+                return specialChars.test(finalPassword);
             }
-            var specialPresent = containsSpecial(password);
-            console.log(specialPresent + "special characters present");
+            var specialPresent = containsSpecial(finalPassword);
+            console.log("special characters present: " + specialPresent);
         } else {
             var specialPresent = true;
         }
