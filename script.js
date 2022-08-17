@@ -5,10 +5,12 @@ console.log(generateBtn);
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
+  console.log(password.length);
+
 
   var passwordText = document.querySelector("#password");
 
-  passwordText.value = password;
+  passwordText.value = password[0];
 
 }
 
@@ -37,74 +39,88 @@ function generatePassword(){
         alert("Not valid. Please choose a number between 8-128");
     }
 
-    //Lowercase and Uppercase letter generation
-    if (lowCase && upCase ) {
-        var letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    } else if (lowCase === true && upCase === false){
-        var letters = "abcdefghijklmnopqrstuvwxyz";
-    } else if (lowCase === false && upCase === true){
-        var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    } else {
-        var letters = "";
-    }
+    //initalize object that contains strings that the user chose
+    let charObject = [];
 
-    //Adding numbers to string
-    if (numInclude){
-        var numbers = "0123456789";
-    
-    } else {
-        var numbers = "";
+    //Lowercase letter generation
+    if (lowCase) {
+        var lowLetters = "abcdefghijklmnopqrstuvwxyz";
+        charObject.push(lowLetters);
     } 
 
-    let characters = letters.concat(numbers);
+    //Uppercase letter generation
+    if(upCase){
+        var upLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        charObject.push(upLetters)
+    }
+
+    //Numbers generation
+    if (numInclude){
+        var numbers = "0123456789";
+        charObject.push(numbers);
+     } 
 
 
     //adding special characters to string
     if (specialChar){
         specialstring = "~!@#$%^&*";
-    } else {
-        specialstring = "";
-    }
+        charObject.push(specialstring);
+    } 
 
-    let charFinal = characters.concat(specialstring);
-    console.log(charFinal);
-
+console.log(charObject);
 
     //initalize password
     var finalPassword = "";
+    //initialize object stepping
+    n = 0;
     //For loop for generating password
     for (i=0; i<passLength; i++){
-        randNum = Math.floor(Math.random() * passLength);
-        randChar = charFinal[randNum];
-        console.log(randChar)
+        
+        if(n===charObject.length){
+            n= 0;  
+        }
+        let randCharFromThisString = charObject[n];
+        console.log(randCharFromThisString);
+
+        let randNum = Math.floor(Math.random() * randCharFromThisString.length);
+        let randChar = randCharFromThisString[randNum]; 
+
         var finalPassword = finalPassword.concat(randChar);
-    }
+        n=n+1;
+        }
+    
     console.log(finalPassword);
 
-        //Checks if password contains at least 1 of each user criteria
+        //Checks if password contains at least 1 of each user criteria (lower case letters)
         if(lowCase){
             function containsLowCase(str){
                 return /[a-z]/.test(str);
             }
             var lowCasePresent = containsLowCase(password);
+        } else {
+            var lowCasePresent = true;
         }
     
-        //Checks if password contains at least 1 of each user criteria (lower case letters)
+        //Checks if password contains at least 1 of each user criteria (upper case letters)
         if(upCase){
             function containsUpCase(str){
                 return /[A-Z]/.test(str);
             }
             var upCasePresent = containsUpCase(password);
             console.log(upCasePresent + " upper case characters");
+        } else {
+            var upCasePresent = true;
         }
     
-        //Checks if password contains at least 1 of each user criteria (upper case letters)
+        //Checks if password contains at least 1 of each user criteria (numbers)
         if(numInclude){
             function containsNum(str){
                 return /[0-9]/.test(str);
             }
             var numPresent = containsNum(password);
             console.log(numPresent + " numbers present");
+        } else {
+            var numPresent = true;
         }
     
         //Checks if password contains at least 1 of each user criteria (special characters)
@@ -116,7 +132,7 @@ function generatePassword(){
             var specialPresent = containsSpecial(password);
             console.log(specialPresent + "special characters present");
         } else {
-            console.log("no special characters detected");
+            var specialPresent = true;
         }
 
 
