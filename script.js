@@ -78,7 +78,13 @@ function generatePassword(){
         let randNum = Math.floor(Math.random() * randCharFromThisString.length);
         let randChar = randCharFromThisString[randNum]; 
 
-        var finalPassword = finalPassword.concat(randChar);
+        if(n % 2 === 0){
+            var finalPassword = finalPassword.concat(randChar);
+        } else {
+            var finalPassword = randChar + finalPassword;
+            console.log(n % 2);
+        }
+
         n=n+1;
         }
     
