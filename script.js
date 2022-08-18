@@ -57,7 +57,7 @@ function generatePassword(){
         charObject.push(numbers);
      } 
 
-    //adding special characters to string
+    //adding special characters to object
     if (specialChar){
         specialstring = "~!@#$%^&*";
         charObject.push(specialstring);
