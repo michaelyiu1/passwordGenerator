@@ -17,5 +17,5 @@ The browser will ask users to include or exclude the following items in their pa
 
 ### Links
 
-Github: 
-Deployed Link:
+Github: https://github.com/michaelyiu1/passwordGenerator
+Deployed Link: https://michaelyiu1.github.io/passwordGenerator/
